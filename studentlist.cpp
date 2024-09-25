@@ -59,7 +59,7 @@ void addStudent(vector<Student*> &studentVect) { //add pointer to new student wi
   cin >> newStudent->gpa;
   cout << "Name: " << newStudent->lastName << ", " << newStudent->firstName << endl << "ID: " << newStudent->studentID << endl << "GPA: " << newStudent->gpa << endl;
   cin.ignore(); //for null terminating char
-  studentVect.push_back(newStudent);
+  studentVect.push_back(newStudent); //add to vector
 }
   
 void printStudents(vector<Student*> studentVect) { //go through vector and print all info
@@ -68,6 +68,6 @@ void printStudents(vector<Student*> studentVect) { //go through vector and print
   }
 }
 
-void deleteStudent() {
+void deleteStudent() { //delete student based on id, then DELETE DATA!!
 
 }

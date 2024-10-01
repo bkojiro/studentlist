@@ -18,7 +18,7 @@ struct Student {
 
 void addStudent(vector<Student*> &studentVect);
 void printStudents(vector<Student*> studentVect);
-void deleteStudent();
+void deleteStudent(vector<Student*> &studentVect);
 
 int main() {
   vector<Student*> studentVect;
@@ -34,7 +34,7 @@ int main() {
     } else if (strcmp(action, "PRINT") == 0) { //printing the vector
       printStudents(studentVect);
     } else if (strcmp(action, "DELETE") == 0) { //deleting a student from the vector
-      deleteStudent();
+      deleteStudent(studentVect);
     } else if (strcmp(action, "QUIT") == 0) { //ending the program
       cout << "Program terminated";
       return 0;
@@ -63,11 +63,26 @@ void addStudent(vector<Student*> &studentVect) { //add pointer to new student wi
 }
   
 void printStudents(vector<Student*> studentVect) { //go through vector and print all info
-  for (int i = 0; i < studentVect.size(); i++) { //DON'T USE FOR LOOP FOR THIS!! LOOK UP ITERATORS
-    cout << studentVect[i]->firstName << " " << studentVect[i]->lastName << ", " << studentVect[i]->studentID << ", " << studentVect[i]->gpa << endl;
+  vector<Student*>::iterator iter; //iteration code from https://stackoverflow.com/questions/23318875/iterating-through-a-vector-of-pointers
+  for (iter = studentVect.begin(); iter < studentVect.end(); iter++) {
+    cout << (*iter)->firstName << " " << (*iter)->lastName << ", " << (*iter)->studentID << ", " << (*iter)->gpa << endl;
   }
 }
 
-void deleteStudent() { //delete student based on id, then DELETE DATA!!
-
+void deleteStudent(vector<Student*> &studentVect) { //delete student based on id, then DELETE DATA!!
+  cout << "Enter the ID that you want to delete" << endl << "> ";
+  int deleteID = 0;
+  cin >> deleteID;
+  cin.ignore();
+  int count = 0;
+  vector<Student*>::iterator iter;
+  for (iter = studentVect.begin(); iter < studentVect.end(); iter++) {
+    if (deleteID == (*iter)->studentID) {
+      cout << (*iter)->firstName << " " << (*iter)->lastName << " was removed from the program" << endl;
+      delete *iter;
+      studentVect.erase(iter);
+      return;
+    }
+  }
+  cout << "Student ID not found" << endl;
 }
